@@ -1,7 +1,9 @@
+import TrackInput from "@/components/TrackInput";
+
 export default function Home() {
   return (
-    <main>
-      <h1>Home</h1>
-    </main>
+    <section className="container mx-auto">
+      <TrackInput />
+    </section>
   );
 }
