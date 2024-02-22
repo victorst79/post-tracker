@@ -1,6 +1,6 @@
 export interface Correos {
 	type: string;
-	expedition: null;
+	expedition: string | null;
 	shipment: CorreosShipment[];
 	others: {
 		offices: any[];

@@ -1,6 +1,5 @@
 'use client'
 import { useEffect, useState } from 'react';
-import parseOrder from '@/utils/parseOrder';
 
 import { Order as OrderInterface } from '@/interfaces/Order.interface';
 
@@ -13,10 +12,10 @@ export default function TrackingPage({ params }: Readonly<{ params: { id: string
 
     useEffect(() => {
         fetch(`/api/tracking/${id}`).then((res) => res.json()).then(({ data }) => {
-            setOrder(parseOrder(data.shipment[0]));
+            setOrder(data);
         });
     }, [id])
-    console.log(order)
+
     return (
         <section className='mx-auto'>
             <h1>Tracking Page</h1>

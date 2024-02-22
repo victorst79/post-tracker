@@ -1,0 +1,6 @@
+{
+	"ES": "https://api1.correos.es/digital-services/searchengines/api/v1/",
+	"NO": "https://sporing.posten.no/tracking/api/fetch?query=RK000255456NO&lang=en",
+	"SK": "https://api.posta.sk/private/web/track?q=VC705014411SK&mmpc=1",
+	"CZ": "https://www.postaonline.cz/trackandtrace/trackandtrace.do?locale=en&barcode=RR123456789CZ"
+}

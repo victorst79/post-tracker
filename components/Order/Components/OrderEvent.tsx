@@ -1,13 +1,17 @@
-import CorreosEvent from '@/interfaces/Correos.interface'
+import { OrderEvent } from "@/interfaces/Order.interface"
 
-export default function OrderEvent(event: Readonly<CorreosEvent>) {
-    console.log('event', event)
+export default function OrderEvent(event: Readonly<OrderEvent>) {
     return (
-        <div>
-            <h1>Event: {event.desPhase}</h1>
-            <p>{event.eventDate}</p>
-            <p>{event.eventTime}</p>
-            <p>{event.extendedText}</p>
+        <div className="collapse bg-base-200">
+            <input type="checkbox" />
+            <div className="collapse-title text-xl font-medium">
+                <h1>Event: {event.phase}</h1>
+            </div>
+            <div className="collapse-content">
+                <p>{event.date}</p>
+                <p>{event.time}</p>
+                <p>{event.description}</p>
+            </div>
         </div>
     )
 }
