@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.gradient-bg {
+    background: linear-gradient(135deg, #5e81ac, #88c0d0);
+    background-size: 400% 400%;
+
+    -webkit-animation: homeGradient 30s ease infinite;
+    -moz-animation: homeGradient 30s ease infinite;
+    animation: homeGradient 30s ease infinite;
+}
+
+@-webkit-keyframes homeGradient {
+    0%{background-position:0% 10%}
+    50%{background-position:100% 91%}
+    100%{background-position:0% 10%}
+}
+@-moz-keyframes homeGradient {
+    0%{background-position:0% 10%}
+    50%{background-position:100% 91%}
+    100%{background-position:0% 10%}
+}
+@keyframes homeGradient {
+    0%{background-position:0% 10%}
+    50%{background-position:100% 91%}
+    100%{background-position:0% 10%}
+}

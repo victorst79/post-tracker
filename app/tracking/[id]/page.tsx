@@ -9,17 +9,30 @@ import Order from '@/components/Order/Order';
 export default function TrackingPage({ params }: Readonly<{ params: { id: string } }>) {
     const { id } = params
     const [order, setOrder] = useState<OrderInterface | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        fetch(`/api/tracking/${id}`).then((res) => res.json()).then(({ data }) => {
-            setOrder(data);
-        });
+        fetch(`/api/tracking/${id}`)
+            .then((res) => res.json())
+            .then(({ data }) => {
+                setOrder(data);
+                setLoading(false);
+            });
     }, [id])
 
+    const renderOrder = () => {
+        return order ? <Order order={order} /> : <p>No order found</p>;
+    }
+
     return (
-        <section className='mx-auto'>
-            <h1>Tracking Page</h1>
-            {order ? <Order order={order} /> : <Loading />}
+        <section className='container mx-auto pt-24'>
+            {loading ? (
+                <div className='flex justify-center items-center mt-40'>
+                    <Loading />
+                </div>
+            ) : (
+                renderOrder()
+            )}
         </section>
     );
 }
