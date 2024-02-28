@@ -6,7 +6,7 @@ import { PaperAirplaneIcon } from '@heroicons/react/20/solid'
 
 export default function TrackInput() {
     const router = useRouter()
-    const [trackingId, setTrackingId] = useState('')
+    const [trackingId, setTrackingId] = useState<string>('')
 
     const handleInput = (value: string) => { setTrackingId(value) }
 
