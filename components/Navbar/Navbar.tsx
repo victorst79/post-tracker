@@ -5,7 +5,7 @@ export default function Navbar() {
     return (
         <nav className="navbar bg-base-300 fixed top-0 z-10">
             <div className="flex-1">
-                <Link className="btn btn-ghost text-xl" href="/">Post Tracker</Link>
+                <Link className="btn btn-ghost text-xl" href="/">PostTrack</Link>
             </div>
             <div className="flex-none">
                 <ul className="menu menu-horizontal">

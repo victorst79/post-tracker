@@ -22,14 +22,14 @@ export default function TrackInput() {
     }
 
     return (
-        <div className="mb-8 w-full mx-auto flex flex-col items-center justify-center">
-            <div className="w-full max-w-2xl">
-                <h3 className="label text-2xl font-semibold text-white">Track your order</h3>
+        <div className="w-full flex flex-col items-center justify-center">
+            <div className="w-full max-w-2xl bg-white p-4 rounded-2xl">
+                <h3 className="label text-2xl font-semibold text-black mb-2">Track your order</h3>
                 <label htmlFor="trackingId" className="input rounded-2xl flex items-center gap-2">
                     <input
                         id="trackingId"
                         type="text"
-                        placeholder="Insert tracking number"
+                        placeholder="Insert tracking ID..."
                         className="w-full bg-white h-30"
                         onChange={(e) => handleInput(e.target.value)}
                         onKeyDown={handleKeyDown} />
