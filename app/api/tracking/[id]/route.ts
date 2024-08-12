@@ -1,5 +1,5 @@
-import { NextResponse, type NextRequest } from 'next/server';
 import parseOrder from '@/utils/parseOrder';
+import { NextResponse, type NextRequest } from 'next/server';
 
 import { Correos } from '@/interfaces/Correos.interface';
 
