@@ -17,11 +17,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-theme="nord">
-      <body className={'min-h-screen'}>
+      <body className={'min-h-screen bg-blue-50'}>
         <header>
           <Navbar />
         </header>
-        <main>{children}</main>
+        <main className="px-24">{children}</main>
       </body>
     </html>
   );
