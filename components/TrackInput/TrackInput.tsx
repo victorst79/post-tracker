@@ -7,13 +7,12 @@ import { PaperAirplaneIcon } from '@heroicons/react/20/solid'
 export default function TrackInput() {
     const router = useRouter()
     const [trackingId, setTrackingId] = useState<string>('')
+    const [saveOrder, setSaveOrder] = useState<boolean>(false)
 
     const handleInput = (value: string) => { setTrackingId(value) }
-
     const handleSearch = () => {
-        router.push(`/tracking/${trackingId}`)
+        router.push(`/tracking/${trackingId}?saveOrder=${saveOrder}`)
     }
-
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             e.preventDefault()
@@ -38,6 +37,10 @@ export default function TrackInput() {
                 >
                     <PaperAirplaneIcon className='h-5 w-5' />
                 </button>
+            </div>
+            <div>
+                <input type='checkbox' id="saveOrder" className="mt-4" onChange={() => setSaveOrder(!saveOrder)} />
+                <label htmlFor="saveOrder" className="text-sm text-black ml-2 font-thin">Save order in My Packages</label>
             </div>
         </div>
     )

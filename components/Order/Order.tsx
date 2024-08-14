@@ -1,9 +1,8 @@
 import type { Order, OrderEvent } from "@/interfaces/Order.interface";
 import Event from "@/components/Order/Components/OrderEvent";
+import OrderTrackInfo from "@/components/Order/Components/OrderTrackInfo";
 
 export default function Order({ order }: Readonly<{ order: Order }>) {
-    console.log(order)
-
     return (
         <div className="container mx-auto my-4">
             <div className="border-1">
@@ -19,7 +18,7 @@ export default function Order({ order }: Readonly<{ order: Order }>) {
                     ))}
                 </div>
                 <div className="col-span-3 border border-black rounded-2xl p-6 ">
-                    <h3>Track Info</h3>
+                    <OrderTrackInfo trackingId={order?.id} />
                 </div>
             </div>
         </div>

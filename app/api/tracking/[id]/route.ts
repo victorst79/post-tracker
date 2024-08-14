@@ -9,7 +9,6 @@ const DEFAULT_SEARCH_TYPE = 'envio';
 
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
 	const { id } = params;
-
 	if (!id) return NextResponse.json({ data: {}, error_msg: 'Invalid tracking number' }, { status: 400 });
 
 	try {

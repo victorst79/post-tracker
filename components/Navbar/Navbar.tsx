@@ -10,7 +10,7 @@ export default function Navbar() {
                 </div>
                 <div className="p-2 rounded-full hover:bg-blue-200">
                     <ul>
-                        <li><Link href={'/login'}><UserCircleIcon className="w-8 h-8" /></Link></li>
+                        <li><Link href={'/tracking/myOrders'}><UserCircleIcon className="w-8 h-8" /></Link></li>
                     </ul>
                 </div>
             </div>
