@@ -5,7 +5,7 @@ import OrderTrackInfo from "@/components/Order/Components/OrderTrackInfo";
 export default function Order({ order }: Readonly<{ order: Order }>) {
     return (
         <div className="container mx-auto my-4">
-            <div className="border-1">
+            <div>
                 <h3 className="my-8 text-2xl font-semibold flex items-center">
                     Order: <div className="text-lg font-normal p-3">{order.id}</div>
                 </h3>

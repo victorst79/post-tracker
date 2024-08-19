@@ -11,7 +11,9 @@ export default function TrackInput() {
 
     const handleInput = (value: string) => { setTrackingId(value) }
     const handleSearch = () => {
-        router.push(`/tracking/${trackingId}?saveOrder=${saveOrder}`)
+        const baseUrl = `/tracking/${trackingId}`;
+        const url = saveOrder ? `${baseUrl}?saveOrder=${saveOrder}` : baseUrl;
+        router.push(url);
     }
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
@@ -32,7 +34,7 @@ export default function TrackInput() {
                     onChange={(e) => handleInput(e.target.value)}
                     onKeyDown={handleKeyDown} />
                 <button
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 rounded-full bg-primary hover:bg-transparent hover:text-blue-200 transition-all bg-blue-200 duration-300 p-2 cursor-pointer text-white"
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 rounded-full hover:bg-transparent hover:text-blue-200 transition-all bg-blue-200 duration-300 p-2 cursor-pointer text-white"
                     onClick={handleSearch}
                 >
                     <PaperAirplaneIcon className='h-5 w-5' />

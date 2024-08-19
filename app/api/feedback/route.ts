@@ -8,7 +8,6 @@ const notion = new Client({
 export async function PATCH(req: NextRequest) {
     try {
         const { email, feedback, trackID } = await req.json();
-        console.log(email, feedback, trackID);
         const dateSubmitted = new Date().toISOString();
 
         if (!email || !feedback || !trackID) {
@@ -32,12 +31,11 @@ export async function PATCH(req: NextRequest) {
                 "track_id": { "rich_text": [{ "text": { "content": trackID } }] }
             }
         });
-
-        console.log(response);
         return NextResponse.json({ message: 'Feedback updated successfully!', result: response }, { status: 200 });
 
     } catch (error) {
         console.error('Error updating feedback:', error);
+        console.error('Request props:', req.json())
         return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
     }
 }

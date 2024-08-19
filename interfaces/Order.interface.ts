@@ -1,6 +1,7 @@
 export interface Order {
 	id: string;
 	events: any[];
+	settings?: any;
 }
 
 export interface OrderEvent {
