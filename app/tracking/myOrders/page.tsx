@@ -1,28 +1,21 @@
 'use client';
-import { useEffect, useState } from 'react';
 import { OrderSummary } from "@/components/Order";
-import { getOrdersFromStorage } from "@/utils/orderStorage";
-import { Order } from '@/interfaces/Order.interface';
+import { useOrders } from "@/hooks/useOrders";
 
 export default function MyOrdersPage() {
-    const [allMyOrders, setAllMyOrders] = useState<Order[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        const orders = getOrdersFromStorage();
-        setAllMyOrders(orders);
-        setIsLoading(false);
-    }, []);
+    const { allMyOrders, isLoading } = useOrders();
 
     const renderMyOrders = () => {
         return (
             <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
-                {allMyOrders.map((order: Order) => (
+                {allMyOrders.map((order) => (
                     <OrderSummary key={order.id} {...order} />
                 ))}
             </div>
         );
     };
+
+    const ordersContent = allMyOrders.length > 0 ? renderMyOrders() : <p className='text-lg mt-4'>You have no packages</p>;
 
     return (
         <section className='container mx-auto pt-24'>
@@ -31,7 +24,7 @@ export default function MyOrdersPage() {
                 {isLoading ? (
                     <p className='text-lg mt-4'>Loading...</p>
                 ) : (
-                    allMyOrders.length > 0 ? renderMyOrders() : <p className='text-lg mt-4'>You have no packages</p>
+                    ordersContent
                 )}
             </div>
         </section>

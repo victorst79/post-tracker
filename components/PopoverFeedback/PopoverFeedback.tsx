@@ -33,7 +33,7 @@ export default function PopoverFeedback() {
     };
 
     return (
-        <div className="fixed bottom-4 right-4">
+        <div className="fixed bottom-4 right-4 z-50">
             <Popover placement="top" showArrow offset={10} backdrop="blur">
                 <PopoverTrigger>
                     <button color="primary" className="rounded-full bg-blue-600 text-white w-12 h-12">+</button>

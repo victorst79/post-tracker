@@ -1,17 +1,22 @@
-'use client'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Order } from "@/interfaces/Order.interface";
 import { PencilIcon } from '@heroicons/react/24/outline';
 import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/popover";
-
-import { modifyOrderInStorage } from "@/utils/orderStorage";
+import { useOrders } from "@/hooks/useOrders";
 
 export default function OrderSummary(order: Readonly<Order>) {
     const router = useRouter();
+    const { modifyOrder } = useOrders();
+    const [isOpen, setIsOpen] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
-    const [color, setColor] = useState('#3b88f0');
     const [title, setTitle] = useState('');
+    const [color, setColor] = useState(order?.settings?.color || '#3b88f0');
+    const [textColor, setTextColor] = useState('#000000');
+
+    useEffect(() => {
+        setTextColor(isColorDark(color) ? '#FFFFFF' : '#000000');
+    }, [color]);
 
     const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setColor(event.target.value);
@@ -19,40 +24,64 @@ export default function OrderSummary(order: Readonly<Order>) {
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(event.target.value);
-    }
+    };
 
     const updateSettingsOrder = () => {
-        const updatedOrder = { ...order, settings: { title, color } };
-        modifyOrderInStorage(order.id, updatedOrder);
-    }
+        const updatedSettings: Partial<Order['settings']> = {};
+
+        if (title) updatedSettings.title = title;
+        if (color) updatedSettings.color = color;
+
+        const updatedOrder = { ...order, settings: { ...order.settings, ...updatedSettings } };
+        modifyOrder(order.id, updatedOrder);
+        setIsOpen(false);
+    };
+
+    const isColorDark = (color: string) => {
+        const hex = color.replace('#', '');
+        const r = parseInt(hex.substring(0, 2), 16);
+        const g = parseInt(hex.substring(2, 4), 16);
+        const b = parseInt(hex.substring(4, 6), 16);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        return brightness < 128;
+    };
 
     return (
-        <div
-            className='relative border border-gray-200 rounded-2xl p-4 mt-4 bg-blue-300 flex flex-col'
+        <button
+            className='relative border border-gray-200 rounded-2xl p-4 mt-4 bg-blue-300 flex flex-col shadow-lg'
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            style={{ backgroundColor: color }}
+            style={{ backgroundColor: color, color: textColor }}
         >
-            <Popover placement="top" showArrow offset={10} backdrop="blur">
+            <Popover placement="top" showArrow offset={10} backdrop="blur" isOpen={isOpen}>
                 <PopoverTrigger>
                     <button
+                        onClick={() => setIsOpen(!isOpen)}
                         className={`absolute top-2 right-2 text-white rounded-full p-2 bg-white bg-opacity-30 ${isHovered ? 'block' : 'hidden'}`}
                     >
                         <PencilIcon className='h-4 w-4' />
                     </button>
                 </PopoverTrigger>
-                <PopoverContent className="w-[240px] rounded-2xl bg-white p-4">
+                <PopoverContent className="w-[240px] rounded-2xl bg-white p-4 pt-2">
                     <div className="px-1 py-2 w-full">
                         <div className='flex justify-between'>
-                            <p className="text-small font-bold text-foreground">
-                                Edit Information
-                            </p>
-                            <input
-                                type="color"
-                                id="color-picker"
-                                value={color}
-                                onChange={handleColorChange}
-                            />
+                            <div className='flex'>
+                                <input
+                                    className='mr-2'
+                                    type="color"
+                                    id="color-picker"
+                                    value={color}
+                                    onChange={handleColorChange}
+                                />
+                                <p className="text-small font-bold text-foreground ">
+                                    Edit Information
+                                </p>
+                            </div>
+                            <div>
+                                <button onClick={() => setIsOpen(!isOpen)} className="text-gray-500 hover:text-gray-700 rounded-full font-bold">
+                                    &times;
+                                </button></div>
+
                         </div>
 
                         <div className="mt-2 flex flex-col gap-2 w-full bg-white">
@@ -75,6 +104,6 @@ export default function OrderSummary(order: Readonly<Order>) {
                 <div>Last update: <span className='italic'>{order.events[order.events.length - 1].date}</span></div>
                 <div>Status: {order.events[order.events.length - 1].status}</div>
             </button>
-        </div>
-    )
+        </button>
+    );
 }
