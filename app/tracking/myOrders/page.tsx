@@ -1,9 +1,24 @@
 'use client';
 import { OrderSummary } from "@/components/Order";
 import { useOrders } from "@/hooks/useOrders";
+import { useEffect } from "react";
 
 export default function MyOrdersPage() {
     const { allMyOrders, isLoading } = useOrders();
+
+    useEffect(() => {
+        const fetchOrders = async () => {
+            try {
+                const response = await fetch('/api/myOrders');
+                const data = await response.json();
+                console.log(data);
+            } catch (error) {
+                console.error('Error fetching orders:', error);
+            }
+        };
+
+        fetchOrders();
+    }, []);
 
     return (
         <section className='container mx-auto pt-24'>

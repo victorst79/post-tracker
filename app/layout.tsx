@@ -4,7 +4,7 @@ import { Roboto } from "next/font/google";
 import Navbar from "@/components/Navbar/Navbar";
 import PopoverFeedback from "@/components/PopoverFeedback";
 
-const roboto = Roboto({weight: "400", subsets: ['latin']});
+const roboto = Roboto({ weight: "400", subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: "PostTrack",
@@ -17,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="nord">
+    <html lang="en">
       <body className={'min-h-screen bg-blue-50'}>
         <header>
           <Navbar />
