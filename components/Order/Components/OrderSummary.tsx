@@ -1,9 +1,11 @@
+'use client'
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Order } from "@/interfaces/Order.interface";
 import { PencilIcon } from '@heroicons/react/24/outline';
-import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/popover";
 import { useOrders } from "@/hooks/useOrders";
+import { isColorDark } from '@/utils/isColorDark';
+import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/popover";
 
 export default function OrderSummary(order: Readonly<Order>) {
     const router = useRouter();
@@ -35,15 +37,6 @@ export default function OrderSummary(order: Readonly<Order>) {
         const updatedOrder = { ...order, settings: { ...order.settings, ...updatedSettings } };
         modifyOrder(order.id, updatedOrder);
         setIsOpen(false);
-    };
-
-    const isColorDark = (color: string) => {
-        const hex = color.replace('#', '');
-        const r = parseInt(hex.substring(0, 2), 16);
-        const g = parseInt(hex.substring(2, 4), 16);
-        const b = parseInt(hex.substring(4, 6), 16);
-        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-        return brightness < 128;
     };
 
     return (

@@ -13,19 +13,22 @@ export function useOrders() {
     }, []);
 
     const addOrder = (order: Order) => {
+        setIsLoading(true);
         addOrderToStorage(order);
         setAllMyOrders(getOrdersFromStorage());
     };
 
     const modifyOrder = (orderId: string, updatedOrder: Order) => {
+        setIsLoading(true);
         modifyOrderInStorage(orderId, updatedOrder);
         setAllMyOrders(getOrdersFromStorage());
     };
 
     const deleteOrder = (orderId: string) => {
+        setIsLoading(true);
         deleteOrderFromStorage(orderId);
         setAllMyOrders(getOrdersFromStorage());
     };
 
-    return { allMyOrders, isLoading, addOrder, modifyOrder, deleteOrder };
+    return { allMyOrders, setAllMyOrders, isLoading, addOrder, modifyOrder, deleteOrder };
 }
