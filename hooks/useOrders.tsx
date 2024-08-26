@@ -17,7 +17,7 @@ export function useOrders() {
         }
     };
 
-    const addOrder = async (order: Order) => {
+    const addOrder = async (uid: string, order: Order) => {
         setIsLoading(true);
         try {
             await fetch('/api/addOrder', {
@@ -27,7 +27,7 @@ export function useOrders() {
                 },
                 body: JSON.stringify(order),
             });
-            const response = await fetch(`/api/myOrders?userId=${user?.uid}`);
+            const response = await fetch(`/api/myOrders?userId=${uid}`);
             const data = await response.json();
             setAllMyOrders(data);
         } catch (error) {
@@ -37,7 +37,7 @@ export function useOrders() {
         }
     };
 
-    const modifyOrder = async (orderId: string, updatedOrder: Order) => {
+    const modifyOrder = async (uid: string, orderId: string, updatedOrder: Order) => {
         setIsLoading(true);
         try {
             await fetch(`/api/modifyOrder/${orderId}`, {
@@ -47,7 +47,7 @@ export function useOrders() {
                 },
                 body: JSON.stringify(updatedOrder),
             });
-            const response = await fetch(`/api/myOrders?userId=${user?.uid}`);
+            const response = await fetch(`/api/myOrders?userId=${uid}`);
             const data = await response.json();
             setAllMyOrders(data);
         } catch (error) {
@@ -57,13 +57,13 @@ export function useOrders() {
         }
     };
 
-    const deleteOrder = async (orderId: string) => {
+    const deleteOrder = async (uid: string, orderId: string) => {
         setIsLoading(true);
         try {
             await fetch(`/api/deleteOrder/${orderId}`, {
                 method: 'DELETE',
             });
-            const response = await fetch(`/api/myOrders?userId=${user?.uid}`);
+            const response = await fetch(`/api/myOrders?userId=${uid}`);
             const data = await response.json();
             setAllMyOrders(data);
         } catch (error) {
