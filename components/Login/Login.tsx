@@ -1,29 +1,34 @@
 'use client'
+import { UserCircleIcon } from "@heroicons/react/24/outline"
+import { FirebaseClient } from "@/lib/firebase";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Login() {
+    /* TODO: refactor firebase init */
+    const tmpClient = FirebaseClient;
     const auth = getAuth();
+    const { setUser, user } = useAuth();
+
     const provider = new GoogleAuthProvider();
 
     const signInWithGoogle = async () => {
         try {
             const result = await signInWithPopup(auth, provider);
-            const user = result.user;
-            console.log(user);
+            const userData = result.user;
+            setUser(userData);
         } catch (error) {
             console.error(error);
         }
     };
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen">
-            <h1 className="text-4xl font-bold">Login</h1>
-            <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                onClick={signInWithGoogle}
-            >
-                Sign in with Google
-            </button>
-        </div>
+        <button onClick={signInWithGoogle} className="rounded-full p-2 hover:bg-blue-200">
+            {user?.photoURL ? (
+                <img src={user.photoURL} className="w-8 h-8 object-cover rounded-full" />
+            ) : (
+                <UserCircleIcon className="w-8 h-8" />
+            )}
+        </button>
     );
 }

@@ -2,23 +2,19 @@
 import { OrderSummary } from "@/components/Order";
 import { useOrders } from "@/hooks/useOrders";
 import { useEffect } from "react";
+import { useAuth } from "@/hooks/useAuth";
+
+import { Order } from "@/interfaces/Order.interface";
 
 export default function MyOrdersPage() {
-    const { allMyOrders, isLoading } = useOrders();
+    const { user } = useAuth();
+    const { allMyOrders, isLoading, fetchOrders } = useOrders();
 
     useEffect(() => {
-        const fetchOrders = async () => {
-            try {
-                const response = await fetch('/api/myOrders');
-                const data = await response.json();
-                console.log(data);
-            } catch (error) {
-                console.error('Error fetching orders:', error);
-            }
-        };
-
-        fetchOrders();
-    }, []);
+        if (user?.uid) {
+            fetchOrders(user.uid);
+        }
+    }, [user?.uid]);
 
     return (
         <section className='container mx-auto pt-24'>
@@ -28,7 +24,7 @@ export default function MyOrdersPage() {
                     <p className='text-lg mt-4'>Loading...</p>
                 ) : (
                     <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
-                        {allMyOrders.map((order) => (
+                        {allMyOrders?.map((order: Order) => (
                             <OrderSummary key={order.id} {...order} />
                         ))}
                     </div>
