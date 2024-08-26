@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { get, ref, child } from "firebase/database";
 import { db } from '@/lib/firebase';
 
-import { UserDataFirebase } from '@/interfaces/Firebase.interface';
+import { UserDataFirebase } from '@/interfaces/API/Firebase.interface';
 
 export const dynamic = 'auto'
 export const dynamicParams = true
