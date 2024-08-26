@@ -1,12 +1,11 @@
 'use client';
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-import { FirebaseUser } from '@/interfaces/Firebase.interface';
-
+import { User } from 'firebase/auth';
 /* TODO: improve interfaces */
 interface AuthContextType {
-  user: FirebaseUser | null;
-  setUser: React.Dispatch<React.SetStateAction<FirebaseUser | null>>;
+  user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
   login: (userData: any) => void;
   logout: () => void;
   isLoggedIn: () => boolean;
@@ -15,7 +14,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { readonly children: ReactNode }) {
-  const [user, setUser] = useState<FirebaseUser | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   const login = (userData: any) => {
     setUser(userData);
