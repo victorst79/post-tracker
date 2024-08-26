@@ -35,7 +35,8 @@ export default function OrderSummary(order: Readonly<Order>) {
         if (color) updatedSettings.color = color;
 
         const updatedOrder = { ...order, settings: { ...order.settings, ...updatedSettings } };
-        modifyOrder(order.id, updatedOrder);
+        /* TODO: implement new edit order */
+        /* modifyOrder(order.id, updatedOrder); */
         setIsOpen(false);
     };
 
