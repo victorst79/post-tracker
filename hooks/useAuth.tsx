@@ -1,8 +1,8 @@
 'use client';
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-
+import { getCookie } from 'cookies-next';
 import { User } from 'firebase/auth';
-/* TODO: improve interfaces */
+
 interface AuthContextType {
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
@@ -14,7 +14,8 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { readonly children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
+  const tmpUser = getCookie('user')
+  const [user, setUser] = useState<User | null>(tmpUser && JSON.parse(tmpUser) || null);
 
   const login = (userData: any) => {
     setUser(userData);

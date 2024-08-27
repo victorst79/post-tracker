@@ -1,11 +1,13 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation'
+import { useAuth } from '@/hooks/useAuth';
 
 import { PaperAirplaneIcon } from '@heroicons/react/20/solid'
 
 export default function TrackInput() {
     const router = useRouter()
+    const { isLoggedIn } = useAuth();
     const [trackingId, setTrackingId] = useState<string>('')
     const [saveOrder, setSaveOrder] = useState<boolean>(false)
 
@@ -21,6 +23,26 @@ export default function TrackInput() {
             handleSearch()
         }
     }
+
+    const renderSaveOrderOption = () => {
+        if (!isLoggedIn()) return null;
+        return (
+            <div>
+                <input
+                    type='checkbox'
+                    id="saveOrder"
+                    className="mt-4"
+                    onChange={() => setSaveOrder(!saveOrder)}
+                />
+                <label
+                    htmlFor="saveOrder"
+                    className="text-sm text-black ml-2 font-thin"
+                >
+                    Save order in My Packages
+                </label>
+            </div>
+        );
+    };
 
     return (
         <div className="w-full max-w-2xl bg-blue-200 p-8 rounded-2xl">
@@ -40,10 +62,7 @@ export default function TrackInput() {
                     <PaperAirplaneIcon className='h-5 w-5' />
                 </button>
             </div>
-            <div>
-                <input type='checkbox' id="saveOrder" className="mt-4" onChange={() => setSaveOrder(!saveOrder)} />
-                <label htmlFor="saveOrder" className="text-sm text-black ml-2 font-thin">Save order in My Packages</label>
-            </div>
+            {renderSaveOrderOption()}
         </div>
     )
 }
