@@ -1,7 +1,7 @@
 'use client';
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { getCookie } from 'cookies-next';
-import { User } from 'firebase/auth';
+import { getCookie, deleteCookie } from 'cookies-next';
+import { getAuth, signOut, User } from 'firebase/auth';
 
 interface AuthContextType {
   user: User | null;
@@ -21,8 +21,15 @@ export function AuthProvider({ children }: { readonly children: ReactNode }) {
     setUser(userData);
   };
 
-  const logout = () => {
-    setUser(null);
+  const logout = async () => {
+    const auth = getAuth();
+    try {
+      await signOut(auth);
+      deleteCookie('user');
+      setUser(null);
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
   };
 
   const isLoggedIn = () => {

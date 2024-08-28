@@ -25,8 +25,8 @@ export default function Login() {
     };
 
     return (
-        <button onClick={signInWithGoogle} className="rounded-full p-2 hover:bg-blue-200">
-            <UserCircleIcon className="w-8 h-8" />
+        <button onClick={signInWithGoogle} className="rounded-full hover:bg-blue-200">
+            <UserCircleIcon className="w-6 h-6" />
         </button>
     );
 }

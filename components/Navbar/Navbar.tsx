@@ -6,7 +6,7 @@ import { useAuth } from "@/hooks/useAuth"
 import { InboxIcon } from "@heroicons/react/24/outline"
 
 export default function Navbar() {
-    const { user } = useAuth();
+    const { user, logout } = useAuth();
     const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
@@ -23,7 +23,9 @@ export default function Navbar() {
                         </Link>
                     </li>
                     <li className="rounded-full p-2 hover:bg-blue-200">
-                        <img src={user.photoURL ?? ''} alt="User image" className="w-8 h-8 object-cover rounded-full" />
+                        <button onClick={() => logout()} className="w-8 h-8 flex">
+                            <img src={user.photoURL ?? ''} alt="User google avatar" className="w-8 h-8 object-cover rounded-full" />
+                        </button>
                     </li>
                 </>
             )
@@ -42,7 +44,7 @@ export default function Navbar() {
                     <Link className="text-2xl font-semibold" href="/">PostTrack</Link>
                 </div>
                 <div className=" ">
-                    <ul className="flex justify-around">
+                    <ul className="flex items-center justify-center">
                         {renderLoginNav()}
                     </ul>
                 </div>
