@@ -6,8 +6,8 @@ export default function OrderTrackInfo({ trackingId }: { readonly trackingId: st
     const getFlagEmoji = (countryCode: string | null): string => {
         if (countryCode === null || countryCode === 'T') return '';
         const upperCaseCountryCode = countryCode.toUpperCase();
-        const firstChar = String.fromCodePoint(upperCaseCountryCode.charCodeAt(0) + 127397);
-        const secondChar = String.fromCodePoint(upperCaseCountryCode.charCodeAt(1) + 127397);
+        const firstChar = String?.fromCodePoint(upperCaseCountryCode.charCodeAt(0) + 127397);
+        const secondChar = String?.fromCodePoint(upperCaseCountryCode.charCodeAt(1) + 127397);
         return firstChar + secondChar;
     };
 

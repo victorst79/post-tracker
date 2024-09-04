@@ -8,7 +8,7 @@ import { InboxIcon } from "@heroicons/react/24/outline"
 export default function Navbar() {
     const { user, logout } = useAuth();
     const [isClient, setIsClient] = useState(false);
-
+    console.log(user)
     useEffect(() => {
         setIsClient(true)
     }, [])
@@ -24,7 +24,7 @@ export default function Navbar() {
                     </li>
                     <li className="rounded-full p-2 hover:bg-blue-200">
                         <button onClick={() => logout()} className="w-8 h-8 flex">
-                            <img src={user.photoURL ?? ''} alt="User google avatar" className="w-8 h-8 object-cover rounded-full" />
+                            <img src={user?.photoURL ?? ''} alt="User google avatar" className="w-8 h-8 object-cover rounded-full" />
                         </button>
                     </li>
                 </>

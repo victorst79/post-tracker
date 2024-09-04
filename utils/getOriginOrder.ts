@@ -3,7 +3,7 @@ function getOriginOrder(trackingNumber: string) {
     const match = regex.exec(trackingNumber);
 
     if (match) {
-        if (match[1] === 'T') {
+        if (match[1] === 'T' || match[1] === 'Y') {
             return 'ES';
         }
         return match[1];
